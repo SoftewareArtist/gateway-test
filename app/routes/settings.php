@@ -1,4 +1,12 @@
 <?php
+
+$GATEWAY_BASE_URL="https://test-gateway.mastercard.com";
+$GATEWAY_MERCHANT_ID = "CS155150720";
+$GATEWAY_API_PASSWORD="8249bd655d5181eb3cf7719b25eecd04";
+$GATEWAY_DEFAULT_CURRENCY="USD";
+$GATEWAY_API_VERSION=45;
+
+
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
@@ -17,15 +25,15 @@ return [
         ],
         //Details needed for Merchant creation. Use ReadMe for details on how to set these variables.
         'configArray' => [
-            'gatewayBaseUrl' => getenv('GATEWAY_BASE_URL'),
+            'gatewayBaseUrl' => $GATEWAY_BASE_URL,
             'pkiBaseUrl' => getenv('PKI_BASE_URL'),
-            'hostedSessionUrl' => getenv('GATEWAY_BASE_URL') . '/form',
-            'gatewayUrl' => getenv('GATEWAY_BASE_URL') . '/api/rest',
-            'merchantId' => getenv('GATEWAY_MERCHANT_ID'),
-            'apiUsername' => "merchant." . getenv('GATEWAY_MERCHANT_ID'),
-            'password' => getenv('GATEWAY_API_PASSWORD'),
+            'hostedSessionUrl' => $GATEWAY_BASE_URL . '/form',
+            'gatewayUrl' => $GATEWAY_BASE_URL . '/api/rest',
+            'merchantId' => $GATEWAY_MERCHANT_ID,
+            'apiUsername' => "merchant." . $GATEWAY_MERCHANT_ID,
+            'password' => $GATEWAY_API_PASSWORD,
             'debug' => 'FALSE',
-            'version' => getenv('GATEWAY_API_VERSION') ?: '45' ,
+            'version' => $GATEWAY_API_VERSION ?: '45' ,
             'currency' => getenv('GATEWAY_DEFAULT_CURRENCY') ?: 'USD',
             'certificatePath' => getenv('GATEWAY_SSL_CERT_PATH'),
             //IMPORTANT: Ensure that you set these flags to TRUE in Production. The Test certificate is self signed and doesn't really need these to be set in Development.

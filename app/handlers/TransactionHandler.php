@@ -94,7 +94,7 @@ class TransactionHandler
         if ($this->merchant->isCertificateAuth()) {
             curl_setopt($curlObj, CURLOPT_SSLCERT, $this->merchant->GetCertificatePath());
             curl_setopt($curlObj, CURLOPT_SSL_VERIFYHOST, $this->merchant->GetCertificateVerifyHost());
-            curl_setopt($this->curlObj, CURLOPT_SSL_VERIFYPEER, $this->merchant->isCertificateVerifyPeer());
+            curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, $this->merchant->isCertificateVerifyPeer());
         } else {
             curl_setopt($curlObj, CURLOPT_USERPWD, $this->merchant->GetApiUsername() . ":" . $this->merchant->GetPassword());
         }

@@ -99,7 +99,7 @@ class Secure3DService extends GatewayService
 
         $gatewayUrl = $this->requestParser->getGatewayUrl($requestBody, $args);
 
-        $requestData = [apiOperation => $apiOperation, '3DSecure' => [
+        $requestData = ["apiOperation" => $apiOperation, '3DSecure' => [
             "paRes" => $requestBody["PaRes"],
         ]];
         $requestData = json_encode($requestData, JSON_PRETTY_PRINT);
@@ -110,13 +110,13 @@ class Secure3DService extends GatewayService
 
     private function processPayment($args, $response)
     {
-        $requestBody = [orderId => $_SESSION['orderId'], transactionId => $_SESSION['transactionId']];
+        $requestBody = ["orderId" => $_SESSION['orderId'], "transactionId" => $_SESSION['transactionId']];
         $gatewayUrl = $this->requestParser->getGatewayUrl($requestBody, []);
         $secureId = $args['secureId'];
         //Get PAYMENT_OPTIONS_INQUIRY to retrieve the transactionMode for the Merchant, use this to determine the apiOperation for the transaction
         $apiOperation = $this->getTransactionMode();
 
-        $requestForward = ['3DSecureId' => $secureId, apiOperation => $apiOperation, order => [amount => $_SESSION['amount'], currency => $_SESSION['currency']], session => [id => $_SESSION['sessionId']]];
+        $requestForward = ['3DSecureId' => $secureId, "apiOperation" => $apiOperation, "order" => ["amount" => $_SESSION['amount'], "currency" => $_SESSION['currency']], "session" => ["id" => $_SESSION['sessionId']]];
 
         $jsonResponse = $this->transactionHandler->sendTransaction(json_encode($requestForward), $gatewayUrl, 'PUT');
 

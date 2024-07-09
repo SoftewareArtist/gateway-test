@@ -66,23 +66,23 @@ class GatewayService
         $sourceOfFunds = $requestBody['sourceOfFunds']['type'];
 
         $requestData = [
-            apiOperation => $requestBody['apiOperation'],
-            order => [
+            "apiOperation" => $requestBody['apiOperation'],
+            "order" => [
                 "amount" => $requestBody['transaction']['amount'],
                 "currency" => $requestBody['transaction']['currency']
             ],
-            sourceOfFunds => [
-                type => $sourceOfFunds
+            "sourceOfFunds" => [
+                "type" => $sourceOfFunds
             ]
         ];
 
-        $browserPayment = [operation => "PAY", returnUrl => $returnUrl];
+        $browserPayment = ["operation" => "PAY", "returnUrl" => $returnUrl];
 
         if ($sourceOfFunds === 'PAYPAL') {
-            $browserPayment[paypal] = [paymentConfirmation => "CONFIRM_AT_PROVIDER"];
+            $browserPayment["paypal"] = ["paymentConfirmation" => "CONFIRM_AT_PROVIDER"];
         }
 
-        $requestData[browserPayment] = $browserPayment;
+        $requestData["browserPayment"] = $browserPayment;
 
         $jsonRequest = json_encode($requestData);
 
@@ -91,12 +91,17 @@ class GatewayService
 
         $parsedResponse = json_decode($jsonResponse, true);
 
-        $redirectUrl = "Location: " . $parsedResponse['browserPayment']['redirectUrl'];
+        $returnUrl = $parsedResponse['browserPayment']['returnUrl'];
 
-        //Redirect to the Browser Payment redirectURL and exit
-        header($redirectUrl);
-
+        //Redirect to the Browser Payment returnUrl and exit
+        // header($returnUrl);
+        var_dump($parsedResponse);
+        exit(0);
+        header("Location: $returnUrl");
+        // var_dump($requestData["browserPayment"]["returnUrl"]);
+        // return $response->withStatus(200);
         exit;
+        // return $returnUrl;
     }
 
     public function getHostedTransaction($request, $response, $args)
@@ -142,7 +147,7 @@ class GatewayService
 
         $parsedResponse = json_decode($jsonResponse, true);
 
-        $response = [sessionId => $parsedResponse['session']['id'], sessionVersion => $parsedResponse['session']['version'], successIndicator => $parsedResponse['successIndicator']];
+        $response = ["sessionId" => $parsedResponse['session']['id'], "sessionVersion" => $parsedResponse['session']['version'], "successIndicator" => $parsedResponse['successIndicator']];
 
         return $response;
     }

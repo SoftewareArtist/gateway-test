@@ -24,6 +24,7 @@ class Merchant
     private $checkoutSessionUrl = "";
     private $pkiBaseUrl = "";
     private $certificatePath = "";
+    private $hostedSessionUrl = "";
     private $certificateAuth = FALSE;
     //NOTE: THESE VALUES ARE SET FOR PRODUCTION ENV, for DEVELOPMENT mode settings - follow the authentication section in the README guide.
     private $certificateVerifyPeer = TRUE;

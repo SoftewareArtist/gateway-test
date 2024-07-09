@@ -117,19 +117,19 @@ class RequestParser
 
         //Requests using a hosted session ID
         if ($hostedSession) {
-            $requestData = [apiOperation => $apiOperation,
-                order => [
+            $requestData = ["apiOperation" => $apiOperation,
+                "order" => [
                     "amount" => $requestBody["amount"],
                     "currency" => $requestBody["currency"]
                 ],
-                session => [id => $requestBody["sessionId"]]
+                "session" => ["id" => $requestBody["sessionId"]]
             ];
 
             if ($apiOperation === 'CHECK_3DS_ENROLLMENT') {
-                $secureArray = [authenticationRedirect =>
+                $secureArray = ["authenticationRedirect" =>
                     [
-                        pageGenerationMode => 'CUSTOMIZED',
-                        responseUrl => 'http://' . $_SERVER['HTTP_HOST'] . '/process3ds'
+                        "pageGenerationMode" => 'CUSTOMIZED',
+                        "responseUrl" => 'http://' . $_SERVER['HTTP_HOST'] . '/process3ds'
                     ]
                 ];
                 $requestData['3DSecure'] = $secureArray;
@@ -160,7 +160,7 @@ class RequestParser
 
         $gatewayUrl = $this->getGatewayUrl($requestBody, $args);
 
-        return array(requestBody => $requestBody, apiOperation => $apiOperation, gatewayUrl => $gatewayUrl);
+        return array("requestBody" => $requestBody, "apiOperation" => $apiOperation, "gatewayUrl" => $gatewayUrl);
     }
 
      public function buildNVPPayRequest($requestBody)
